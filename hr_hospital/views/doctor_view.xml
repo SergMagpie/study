@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="doctor_form_view" model="ir.ui.view">
+            <field name="name">hr_hospital.doctor.form</field>
+            <field name="model">doctor</field>
+            <field name="arch" type="xml">
+                <form string="Doctor">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="is_attending_physician"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="doctor_tree_view" model="ir.ui.view">
+            <field name="name">hr_hospital.doctor.tree</field>
+            <field name="model">doctor</field>
+            <field name="arch" type="xml">
+                <tree string="Doctor">
+                    <field name="partner_id"/>
+                    <field name="is_attending_physician"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="doctor_act_window" model="ir.actions.act_window">
+            <field name="name">Doctor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">doctor</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Doctor.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Doctor" id="doctor_menu" parent="hr_hospital_menu" action="doctor_act_window"/>
+
+    </data>
+</odoo>

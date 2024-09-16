@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="disease_form_view" model="ir.ui.view">
+            <field name="name">hr_hospital.disease.form</field>
+            <field name="model">disease</field>
+            <field name="arch" type="xml">
+                <form string="Disease">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="disease_tree_view" model="ir.ui.view">
+            <field name="name">hr_hospital.disease.tree</field>
+            <field name="model">disease</field>
+            <field name="arch" type="xml">
+                <tree string="Disease">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="disease_act_window" model="ir.actions.act_window">
+            <field name="name">Disease</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">disease</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Disease.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Disease" id="disease_menu" parent="hr_hospital_menu" action="disease_act_window"/>
+
+    </data>
+</odoo>
