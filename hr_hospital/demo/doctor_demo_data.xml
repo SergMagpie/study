@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Create Doctor like Partner-->
+        <record id="partner_doctor_1" model="res.partner">
+            <field name="name">Strange</field>
+        </record>
+        <record id="partner_doctor_2" model="res.partner">
+            <field name="name">Who</field>
+        </record>
+        <record id="partner_doctor_3" model="res.partner">
+            <field name="name">Mo</field>
+        </record>
+        <!--Add Doctor's ref-->
+        <record id="doctor_1" model="doctor">
+            <field name="partner_id" ref="partner_doctor_1"/>
+            <field name="is_attending_physician" eval="True"/>
+        </record>
+        <record id="doctor_2" model="doctor">
+            <field name="partner_id" ref="partner_doctor_2"/>
+            <field name="is_attending_physician" eval="False"/>
+        </record>
+        <record id="doctor_3" model="doctor">
+            <field name="partner_id" ref="partner_doctor_3"/>
+            <field name="is_attending_physician" eval="False"/>
+        </record>
+    </data>
+</odoo>

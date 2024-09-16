@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Create Patient like Partner-->
+        <record id="partner_patient_1" model="res.partner">
+            <field name="name">Kolya</field>
+        </record>
+        <record id="partner_patient_2" model="res.partner">
+            <field name="name">Petya</field>
+        </record>
+        <record id="partner_patient_3" model="res.partner">
+            <field name="name">Basil</field>
+        </record>
+        <!--Add Patient's ref-->
+        <record id="patient_1" model="patient">
+            <field name="partner_id" ref="partner_patient_1"/>
+        </record>
+        <record id="patient_2" model="patient">
+            <field name="partner_id" ref="partner_patient_2"/>
+        </record>
+        <record id="patient_3" model="patient">
+            <field name="partner_id" ref="partner_patient_3"/>
+        </record>
+    </data>
+</odoo>
