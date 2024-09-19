@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="desease_1" model="disease">
+        <record id="desease_1" model="hr_hospital.disease">
             <field name="name">covid</field>
         </record>
-        <record id="desease_2" model="disease">
+        <record id="desease_2" model="hr_hospital.disease">
             <field name="name">depression</field>
         </record>
-        <record id="desease_3" model="disease">
+        <record id="desease_3" model="hr_hospital.disease">
             <field name="name">cough</field>
         </record>
     </data>
