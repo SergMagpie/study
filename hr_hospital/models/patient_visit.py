@@ -2,20 +2,20 @@ from odoo import fields, models
 
 
 class PatientVisit(models.Model):
-    _name = "patient.visit"
+    _name = "hr_hospital.patient_visit"
     _description = "Patient Visit"
 
     visit_date = fields.Date(
         string="Visit Date")
     doctor = fields.Many2one(
-        comodel_name='doctor',
+        comodel_name='hr_hospital.doctor',
         string="Doctor",
     )
     patient = fields.Many2one(
-        comodel_name='patient',
+        comodel_name='hr_hospital.patient',
         string="Patient",
     )
     disease = fields.Many2one(
-        comodel_name='disease',
+        comodel_name='hr_hospital.disease',
         string="Disease",
     )
