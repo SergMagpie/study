@@ -2,7 +2,7 @@ from odoo import fields, models
 
 
 class Doctor(models.Model):
-    _name = "doctor"
+    _name = "hr_hospital.doctor"
     _description = "Doctor"
 
     partner_id = fields.Many2one(

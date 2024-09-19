@@ -4,7 +4,7 @@
 
         <record id="doctor_form_view" model="ir.ui.view">
             <field name="name">hr_hospital.doctor.form</field>
-            <field name="model">doctor</field>
+            <field name="model">hr_hospital.doctor</field>
             <field name="arch" type="xml">
                 <form string="Doctor">
                     <sheet>
@@ -21,7 +21,7 @@
 
         <record id="doctor_tree_view" model="ir.ui.view">
             <field name="name">hr_hospital.doctor.tree</field>
-            <field name="model">doctor</field>
+            <field name="model">hr_hospital.doctor</field>
             <field name="arch" type="xml">
                 <tree string="Doctor">
                     <field name="partner_id"/>
@@ -33,7 +33,7 @@
         <record id="doctor_act_window" model="ir.actions.act_window">
             <field name="name">Doctor</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">doctor</field>
+            <field name="res_model">hr_hospital.doctor</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
