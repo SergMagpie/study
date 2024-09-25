@@ -11,6 +11,18 @@
                         <group>
                             <group>
                                 <field name="partner_id"/>
+                                <field name="surname"/>
+                                <field name="first_name"/>
+                                <field name="phone"/>
+                                <field name="photo" widget="image"/>
+                                <field name="sex"/>
+                            </group>
+                            <group>
+                                <field name="personal_doctor_id"/>
+                                <field name="date_of_birth"/>
+                                <field name="age"/>
+                                <field name="passport_data"/>
+                                <field name="contact_person_id"/>
                             </group>
                         </group>
                     </sheet>
@@ -24,6 +36,15 @@
             <field name="arch" type="xml">
                 <tree string="Patient">
                     <field name="partner_id"/>
+                    <field name="surname"/>
+                    <field name="first_name"/>
+                    <field name="phone"/>
+                    <field name="sex"/>
+                    <field name="personal_doctor_id"/>
+                    <field name="date_of_birth"/>
+                    <field name="age"/>
+                    <field name="passport_data"/>
+                    <field name="contact_person_id"/>
                 </tree>
             </field>
         </record>

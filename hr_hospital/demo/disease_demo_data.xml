@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="disease_mental" model="hr_hospital.disease">
+            <field name="name">Mental Illness</field>
+        </record>
+        <record id="mental_disease_1" model="hr_hospital.disease">
+            <field name="name">Hobbyhorse</field>
+            <field name="parent_id" ref="disease_mental"/>
+        </record>
+        <record id="mental_disease_2" model="hr_hospital.disease">
+            <field name="name">Quadrobers</field>
+            <field name="parent_id" ref="disease_mental"/>
+        </record>
+        <record id="mental_disease_3" model="hr_hospital.disease">
+            <field name="name">Fury</field>
+            <field name="parent_id" ref="disease_mental"/>
+        </record>
+        <record id="mental_disease_4" model="hr_hospital.disease">
+            <field name="name">Therianthrope</field>
+            <field name="parent_id" ref="disease_mental"/>
+        </record>
+        <record id="mental_disease_5" model="hr_hospital.disease">
+            <field name="name">Pillar Huggers</field>
+            <field name="parent_id" ref="disease_mental"/>
+        </record>
+        <record id="mental_disease_6" model="hr_hospital.disease">
+            <field name="name">Keyboard Chefs</field>
+            <field name="parent_id" ref="disease_mental"/>
+        </record>
+    </data>
+</odoo>
