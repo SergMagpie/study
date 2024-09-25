@@ -4,15 +4,19 @@ from odoo import fields, models
 class Doctor(models.Model):
     _name = "hr_hospital.doctor"
     _description = "Doctor"
+    _inherit = "hr_hospital.person"
 
-    partner_id = fields.Many2one(
-        comodel_name="res.partner",
-        string="Name",
+    is_attending_physician = fields.Boolean(
+        string="Is The Attending Physician",
     )
-
-    name = fields.Char(
-        related="partner_id.name",
-        string="Name",
+    specialty_id = fields.Many2one(
+        comodel_name='hr_hospital.specialty',
+        string="Specialty",
     )
-
-    is_attending_physician = fields.Boolean(string="Is The Attending Physician")
+    is_intern = fields.Boolean(
+        string="Intern",
+    )
+    mentor_doctor_id = fields.Many2one(
+        comodel_name='hr_hospital.doctor',
+        string="Mentor Doctor",
+    )

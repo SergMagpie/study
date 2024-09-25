@@ -10,10 +10,21 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="visit_date"/>
-                                <field name="doctor"/>
-                                <field name="patient"/>
-                                <field name="disease"/>
+                                <field name="active" invisible="1"/>
+                                <field name="visit_date"
+                                       readonly="visit_status == 'completed'"/>
+                                <field name="doctor_id"
+                                       readonly="visit_status == 'completed'"/>
+                                <field name="patient_id"/>
+                                <field name="disease_id"/>
+                            </group>
+                            <group>
+                                <field name="visit_status"/>
+                                <field name="visit_planned_datetime"
+                                       readonly="visit_status == 'completed'"/>
+                                <field name="visit_real_datetime"
+                                       readonly="visit_status == 'completed'"/>
+                                <field name="diagnosis_ids" widget="many2many_tags"/>
                             </group>
                         </group>
                     </sheet>
@@ -27,9 +38,9 @@
             <field name="arch" type="xml">
                 <tree string="Patient Visit">
                     <field name="visit_date"/>
-                    <field name="doctor"/>
-                    <field name="patient"/>
-                    <field name="disease"/>
+                    <field name="doctor_id"/>
+                    <field name="patient_id"/>
+                    <field name="disease_id"/>
                 </tree>
             </field>
         </record>

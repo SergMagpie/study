@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="diagnosis_form_view" model="ir.ui.view">
+            <field name="name">hr_hospital.diagnosis.form</field>
+            <field name="model">hr_hospital.diagnosis</field>
+            <field name="arch" type="xml">
+                <form string="Diagnosis">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="visit_id"/>
+                                <field name="disease_id"/>
+                                <field name="description"/>
+                                <field name="is_confirmed"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="diagnosis_tree_view" model="ir.ui.view">
+            <field name="name">hr_hospital.diagnosis.tree</field>
+            <field name="model">hr_hospital.diagnosis</field>
+            <field name="arch" type="xml">
+                <tree string="Diagnosis">
+                    <field name="visit_id"/>
+                    <field name="disease_id"/>
+                    <field name="description"/>
+                    <field name="is_confirmed"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="diagnosis_act_window" model="ir.actions.act_window">
+            <field name="name">Diagnosis</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr_hospital.diagnosis</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no examples click here to add new Diagnosis.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Diagnosis" id="diagnosis_menu" parent="hr_hospital_menu" action="diagnosis_act_window"/>
+
+    </data>
+</odoo>

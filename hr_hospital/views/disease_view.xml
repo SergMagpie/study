@@ -11,6 +11,8 @@
                         <group>
                             <group>
                                 <field name="name"/>
+                                <field name="complete_name"/>
+                                <field name="parent_id"/>
                             </group>
                         </group>
                     </sheet>
@@ -23,7 +25,7 @@
             <field name="model">hr_hospital.disease</field>
             <field name="arch" type="xml">
                 <tree string="Disease">
-                    <field name="name"/>
+                    <field name="complete_name"/>
                 </tree>
             </field>
         </record>

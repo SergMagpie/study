@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="define_personal_doctor_form_view" model="ir.ui.view">
+            <field name="name">hr_hospital.define.personal.doctor.form</field>
+            <field name="model">hr_hospital.define.personal.doctor.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Define Personal Doctor Wizard">
+                    <group>
+                        <group>
+                            <field name="patient_ids" widget="many2many_tags"/>
+                            <field name="doctor_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Define Personal Doctor"
+                                name="define_personal_doctor" type="object"
+                                class="btn-primary" data-hotkey="d"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"
+                                data-hotkey="x"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="define_personal_doctor_act_window" model="ir.actions.act_window">
+            <field name="name">Define Personal Doctor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr_hospital.define.personal.doctor.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="define_personal_doctor_form_view"/>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_hr_hospital_patient"/>
+            <field name="binding_view_types">list</field>
+        </record>
+
+    </data>
+</odoo>
