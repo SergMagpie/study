@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="desease_1" model="hr_hospital.disease">
-            <field name="name">covid</field>
+        <record id="disease_all" model="hr_hospital.disease">
+            <field name="name">General Illness</field>
         </record>
-        <record id="desease_2" model="hr_hospital.disease">
-            <field name="name">depression</field>
+        <record id="disease_1" model="hr_hospital.disease">
+            <field name="name">COVID</field>
+            <field name="parent_id" ref="disease_all"/>
         </record>
-        <record id="desease_3" model="hr_hospital.disease">
-            <field name="name">cough</field>
+        <record id="disease_2" model="hr_hospital.disease">
+            <field name="name">Depression</field>
+            <field name="parent_id" ref="disease_all"/>
+        </record>
+        <record id="disease_3" model="hr_hospital.disease">
+            <field name="name">Cough</field>
+            <field name="parent_id" ref="disease_all"/>
         </record>
     </data>
 </odoo>

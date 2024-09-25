@@ -12,6 +12,18 @@
                             <group>
                                 <field name="partner_id"/>
                                 <field name="is_attending_physician"/>
+                                <field name="surname"/>
+                                <field name="first_name"/>
+                                <field name="phone"/>
+                                <field name="photo" widget="image"/>
+                                <field name="sex"/>
+                            </group>
+                            <group>
+                                <field name="specialty_id"/>
+                                <field name="is_intern"/>
+                                <field name="mentor_doctor_id"
+                                       domain="[('id', '!=', id), ('is_intern', '!=', True)]"
+                                       invisible="not is_intern"/>
                             </group>
                         </group>
                     </sheet>
@@ -26,6 +38,10 @@
                 <tree string="Doctor">
                     <field name="partner_id"/>
                     <field name="is_attending_physician"/>
+                    <field name="surname"/>
+                    <field name="first_name"/>
+                    <field name="phone"/>
+                    <field name="sex"/>
                 </tree>
             </field>
         </record>

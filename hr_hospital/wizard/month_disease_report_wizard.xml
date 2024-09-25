@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="month_disease_report_form_view" model="ir.ui.view">
+            <field name="name">hr_hospital.month_disease_report.form</field>
+            <field name="model">hr_hospital.month.disease.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Month Disease Report Wizard">
+                    <group>
+                        <group>
+                            <field name="doctor_ids" widget="many2many_tags"/>
+                            <field name="disease_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="from_date"
+                                   widget="daterange"
+                                   options="{'end_date_field': 'to_date'}"/>
+                            <field name="to_date" invisible="1"/>
+                        </group>
+                        <field name="diagnosis_ids"/>
+                    </group>
+                    <footer>
+                        <button string="Print Month Disease Report"
+                                name="month_disease_report" type="object"
+                                class="btn-primary" data-hotkey="d"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"
+                                data-hotkey="x"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="month_disease_report_act_window" model="ir.actions.act_window">
+            <field name="name">Month Disease Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr_hospital.month.disease.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="month_disease_report_form_view"/>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_hr_hospital_doctor"/>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>
