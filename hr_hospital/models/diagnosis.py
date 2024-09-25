@@ -24,3 +24,7 @@ class Diagnosis(models.Model):
              "made by the mentor doctor, has been checked "
              "and approved by his mentor.",
     )
+    name = fields.Char(
+        string="Diagnosis Name",
+        related="disease_id.name",
+    )
