@@ -32,6 +32,6 @@ class Patient(models.Model):
     def compute_age(self):
         for record in self:
             if record.date_of_birth:
-                record.age = (fields.Date.today() - record.date_of_birth)
+                record.age = (fields.Date.today() - record.date_of_birth).days / 365.25
             else:
                 record.age = 0
