@@ -20,3 +20,22 @@ class Doctor(models.Model):
         comodel_name='hr_hospital.doctor',
         string="Mentor Doctor",
     )
+    intern_ids = fields.One2many(
+        comodel_name='hr_hospital.doctor',
+        string="Intern",
+        inverse_name='mentor_doctor_id',
+    )
+
+    def open_patient_visit_act_window_calendar(self):
+        action = {
+            'name': 'Patient Visit',
+            'type': 'ir.actions.act_window',
+            'res_model': 'hr_hospital.patient_visit',
+            'domain': [('doctor_id', '=', self.id)],
+            'context': {
+                'default_doctor_id': self.id,
+            },
+            'view_mode': 'calendar',
+            'view_id': self.env.ref('hr_hospital.patient_visit_calendar').id,
+        }
+        return action

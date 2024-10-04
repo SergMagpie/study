@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class Diagnosis(models.Model):
@@ -28,3 +28,24 @@ class Diagnosis(models.Model):
         string="Diagnosis Name",
         related="disease_id.name",
     )
+    visit_real_datetime = fields.Datetime(
+        string="Date and time when the visit took place",
+        compute='_compute_visit_real_datetime',
+        store=True,
+    )
+    disease_type_id = fields.Many2one(
+        comodel_name='hr_hospital.disease',
+        string="Disease type",
+        compute='_compute_disease_type',
+        store=True,
+    )
+
+    @api.depends('disease_id')
+    def _compute_disease_type(self):
+        for record in self:
+            record.disease_type_id = record.disease_id.parent_id.id or record.disease_id.id
+
+    @api.depends('visit_id.visit_real_datetime')
+    def _compute_visit_real_datetime(self):
+        for record in self:
+            record.visit_real_datetime = record.visit_id.visit_real_datetime

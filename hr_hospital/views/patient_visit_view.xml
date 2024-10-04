@@ -7,19 +7,19 @@
             <field name="model">hr_hospital.patient_visit</field>
             <field name="arch" type="xml">
                 <form string="Patient Visit">
+                    <header>
+                        <field name="visit_status" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
                                 <field name="active" invisible="1"/>
-                                <field name="visit_date"
-                                       readonly="visit_status == 'completed'"/>
                                 <field name="doctor_id"
                                        readonly="visit_status == 'completed'"/>
                                 <field name="patient_id"/>
                                 <field name="disease_id"/>
                             </group>
                             <group>
-                                <field name="visit_status"/>
                                 <field name="visit_planned_datetime"
                                        readonly="visit_status == 'completed'"/>
                                 <field name="visit_real_datetime"
@@ -37,7 +37,6 @@
             <field name="model">hr_hospital.patient_visit</field>
             <field name="arch" type="xml">
                 <tree string="Patient Visit">
-                    <field name="visit_date"/>
                     <field name="doctor_id"/>
                     <field name="patient_id"/>
                     <field name="disease_id"/>
@@ -45,11 +44,86 @@
             </field>
         </record>
 
+
+        <record id="view_patient_visit_form_quick_create" model="ir.ui.view">
+            <field name="name">patient_visit.form.quick_create</field>
+            <field name="model">hr_hospital.patient_visit</field>
+            <field name="arch" type="xml">
+                <form string="Patient Visit" js_class="calendar_quick_create_form_view">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="visit_status"/>
+                                <field name="active" invisible="1"/>
+                                <field name="doctor_id"
+                                       readonly="visit_status == 'completed'"/>
+                                <field name="patient_id"/>
+                                <field name="disease_id"/>
+                            </group>
+                            <group>
+                                <field name="visit_planned_datetime"
+                                       readonly="visit_status == 'completed'"/>
+                                <field name="visit_real_datetime"
+                                       readonly="visit_status == 'completed'"/>
+                                <field name="diagnosis_ids" widget="many2many_tags"
+                                       can_create="false"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="patient_visit_calendar" model="ir.ui.view">
+            <field name="name">patient.visit.calendar</field>
+            <field name="model">hr_hospital.patient_visit</field>
+            <field name="arch" type="xml">
+                <calendar date_start="visit_planned_datetime"
+                          color="doctor_id"
+                          event_open_popup="true"
+                          quick_create="true"
+                          quick_create_view_id="%(hr_hospital.view_patient_visit_form_quick_create)d"
+                          string="Patient Visit">
+                    <field name="description"/>
+                    <field name="doctor_id"/>
+                    <field name="patient_id"/>
+                    <field name="disease_id"/>
+                    <field name="visit_status"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="patient_visit_pivot" model="ir.ui.view">
+            <field name="name">patient.visit.pivot</field>
+            <field name="model">hr_hospital.patient_visit</field>
+            <field name="arch" type="xml">
+                <pivot string="Patient Visit">
+                    <field name="doctor_id" type="row"/>
+                    <field name="visit_status" type="col"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="patient_visit_search" model="ir.ui.view">
+            <field name="name">patient.visit.search</field>
+            <field name="model">hr_hospital.patient_visit</field>
+            <field name="arch" type="xml">
+                <search string="Patient Visit">
+                    <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+                    <group>
+                        <filter string="Visit Status" name="visit_status" context="{'group_by':'visit_status'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="patient_visit_act_window" model="ir.actions.act_window">
             <field name="name">Patient Visit</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr_hospital.patient_visit</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,calendar,pivot</field>
+            <field name="search_view_id" ref="patient_visit_search"/>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     There is no examples click here to add new Patient Visit.

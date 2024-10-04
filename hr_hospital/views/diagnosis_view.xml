@@ -14,6 +14,8 @@
                                 <field name="disease_id"/>
                                 <field name="description"/>
                                 <field name="is_confirmed"/>
+                                <field name="visit_real_datetime"/>
+                                <field name="disease_type_id"/>
                             </group>
                         </group>
                     </sheet>
@@ -28,9 +30,35 @@
                 <tree string="Diagnosis">
                     <field name="visit_id"/>
                     <field name="disease_id"/>
+                    <field name="disease_type_id"/>
                     <field name="description"/>
                     <field name="is_confirmed"/>
+                    <field name="visit_real_datetime"/>
                 </tree>
+            </field>
+        </record>
+
+        <record id="diagnosis_pivot" model="ir.ui.view">
+            <field name="name">diagnosis.pivot</field>
+            <field name="model">hr_hospital.diagnosis</field>
+            <field name="arch" type="xml">
+                <pivot string="Diagnosis">
+                    <field name="visit_real_datetime" interval="month" type="col"/>
+                    <field name="visit_real_datetime" interval="year" type="col"/>
+                    <field name="disease_id" type="row"/>
+                    <field name="disease_type_id" type="row"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="diagnosis_graph" model="ir.ui.view">
+            <field name="name">diagnosis.graph</field>
+            <field name="model">hr_hospital.diagnosis</field>
+            <field name="arch" type="xml">
+                <graph string="Diagnosis" sample="1">
+                    <field name="disease_type_id"/>
+                    <field name="visit_real_datetime" interval="month"/>
+                </graph>
             </field>
         </record>
 
@@ -38,7 +66,7 @@
             <field name="name">Diagnosis</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr_hospital.diagnosis</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     There is no examples click here to add new Diagnosis.

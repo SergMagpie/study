@@ -40,10 +40,12 @@ class MonthDiseaseReportWizard(models.TransientModel):
         if self.disease_ids:
             search_domain.append(('disease_id', 'in', self.disease_ids.ids))
         if self.from_date:
-            patient_visit_ids = self.env['hr_hospital.patient_visit'].search([('visit_date', '>=', self.from_date)])
+            patient_visit_ids = self.env['hr_hospital.patient_visit'].search(
+                [('visit_real_datetime', '>=', self.from_date)])
             search_domain.append(('visit_id', 'in', patient_visit_ids.ids))
         if self.to_date:
-            patient_visit_ids = self.env['hr_hospital.patient_visit'].search([('visit_date', '<=', self.to_date)])
+            patient_visit_ids = self.env['hr_hospital.patient_visit'].search(
+                [('visit_real_datetime', '<=', self.to_date)])
             search_domain.append(('visit_id', 'in', patient_visit_ids.ids))
         self.diagnosis_ids = [(6, 0, self.diagnosis_ids.search(search_domain).ids)]
 

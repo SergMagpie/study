@@ -7,6 +7,11 @@
             <field name="model">hr_hospital.patient</field>
             <field name="arch" type="xml">
                 <form string="Patient">
+                    <header>
+                        <button name="open_patient_visit_act_window_calendar"
+                                string="Quick Creation Of a Patient Visit"
+                                type="object"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
@@ -25,6 +30,15 @@
                                 <field name="contact_person_id"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page name="history_of_diagnoses" string="History Of Diagnoses">
+                                <button name="open_patient_visit_act_window"
+                                        string="View The History Of Visits"
+                                        type="object"
+                                        invisible="not diagnosis_ids"/>
+                                <field name="diagnosis_ids"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -48,6 +62,22 @@
                 </tree>
             </field>
         </record>
+
+
+        <record id="patient_search" model="ir.ui.view">
+            <field name="name">patient.search</field>
+            <field name="model">hr_hospital.patient</field>
+            <field name="arch" type="xml">
+                <search string="Patient">
+                    <field name="name" string="Name"/>
+                    <field name="phone" string="Phone"/>
+                    <group>
+                        <filter string="Age" name="age" context="{'group_by':'age'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
 
         <record id="patient_act_window" model="ir.actions.act_window">
             <field name="name">Patient</field>

@@ -29,6 +29,7 @@
         'demo/doctor_demo_data.xml',
         'demo/patient_demo_data.xml',
         'demo/disease_demo_data.xml',
+        'demo/patient_visit_demo_data.xml',
     ],
     'installable': True,
     'auto_install': False,

@@ -14,12 +14,15 @@
         <!--Add Patient's ref-->
         <record id="patient_1" model="hr_hospital.patient">
             <field name="partner_id" ref="partner_patient_1"/>
+            <field name="personal_doctor_id" ref="doctor_1"/>
         </record>
         <record id="patient_2" model="hr_hospital.patient">
             <field name="partner_id" ref="partner_patient_2"/>
+            <field name="personal_doctor_id" ref="doctor_2"/>
         </record>
         <record id="patient_3" model="hr_hospital.patient">
             <field name="partner_id" ref="partner_patient_3"/>
+            <field name="personal_doctor_id" ref="doctor_3"/>
         </record>
     </data>
 </odoo>
