@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Add Patient's ref-->
+        <record id="patient_visit_1" model="hr_hospital.patient_visit">
+            <field name="doctor_id" ref="doctor_1"/>
+            <field name="patient_id" ref="patient_1"/>
+            <field name="visit_planned_datetime" eval="datetime.now() - timedelta(days=8)"/>
+            <field name="visit_real_datetime" eval="datetime.now() - timedelta(days=8)"/>
+            <field name="disease_id" ref="mental_disease_1"/>
+            <field name="visit_status">completed</field>
+        </record>
+        <record id="patient_visit_2" model="hr_hospital.patient_visit">
+            <field name="doctor_id" ref="doctor_2"/>
+            <field name="patient_id" ref="patient_2"/>
+            <field name="visit_planned_datetime" eval="datetime.now() - timedelta(days=18)"/>
+            <field name="visit_real_datetime" eval="datetime.now() - timedelta(days=18)"/>
+            <field name="disease_id" ref="mental_disease_2"/>
+            <field name="visit_status">completed</field>
+        </record>
+        <record id="patient_visit_3" model="hr_hospital.patient_visit">
+            <field name="doctor_id" ref="doctor_3"/>
+            <field name="patient_id" ref="patient_3"/>
+            <field name="visit_planned_datetime" eval="datetime.now() - timedelta(days=28)"/>
+            <field name="visit_real_datetime" eval="datetime.now() - timedelta(days=28)"/>
+            <field name="disease_id" ref="mental_disease_3"/>
+            <field name="visit_status">completed</field>
+        </record>
+        <record id="patient_visit_4" model="hr_hospital.patient_visit">
+            <field name="doctor_id" ref="doctor_1"/>
+            <field name="patient_id" ref="patient_2"/>
+            <field name="visit_planned_datetime" eval="datetime.now() - timedelta(days=38)"/>
+            <field name="disease_id" ref="mental_disease_4"/>
+            <field name="visit_status">cancelled</field>
+        </record>
+    </data>
+</odoo>

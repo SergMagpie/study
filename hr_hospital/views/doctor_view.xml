@@ -7,6 +7,11 @@
             <field name="model">hr_hospital.doctor</field>
             <field name="arch" type="xml">
                 <form string="Doctor">
+                    <header>
+                        <button name="open_patient_visit_act_window_calendar"
+                                string="Quick Creation Of a Patient Visit"
+                                type="object"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
@@ -26,6 +31,30 @@
                                        invisible="not is_intern"/>
                             </group>
                         </group>
+                        <notebook invisible="not intern_ids">
+                            <page name="history_of_diagnoses" string="History Of Diagnoses">
+                                <field name="intern_ids">
+                                    <kanban create="false" class="o_modules_kanban">
+                                        <field name="partner_id"/>
+                                        <field name="specialty_id"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_global_click">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <strong>Name: </strong><field name="partner_id"/>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <strong>Specialty: </strong><field name="specialty_id"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -46,11 +75,74 @@
             </field>
         </record>
 
+        <record id="doctor_kanban" model="ir.ui.view">
+            <field name="name">doctor.kanban</field>
+            <field name="model">hr_hospital.doctor</field>
+            <field name="arch" type="xml">
+                <kanban string="Doctor"
+                        quick_create="true"
+                        quick_create_view="hr_hospital.doctor_form_view"
+                        default_group_by="specialty_id">
+                    <field name="partner_id"/>
+                    <field name="specialty_id"/>
+                    <field name="intern_ids_char"/>
+                    <templates>
+                        <t t-name="kanban-menu">
+                            <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit</a></t>
+                            <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">
+                                Delete</a></t>
+                            <ul class="oe_kanban_colorpicker" data-field="color"/>
+                        </t>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <strong>First Name: </strong><field name="first_name"/>
+                                    </div>
+                                    <div class="col-8" t-if="record.surname.value">
+                                        <strong>Surname: </strong><field name="surname"/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <strong>Specialty: </strong><field name="specialty_id"/>
+                                </div>
+                                <div t-if="record.intern_ids_char.value">
+                                    <strong>Intern: </strong><field name="intern_ids_char"/>
+                                </div>
+                                <div>
+                                    <button name="open_patient_visit_act_window_calendar"
+                                            string="Quick Creation Of a Patient Visit"
+                                            class="oe_button oe_highlight"
+                                            type="object"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="doctor_search" model="ir.ui.view">
+            <field name="name">doctor.search</field>
+            <field name="model">hr_hospital.doctor</field>
+            <field name="arch" type="xml">
+                <search string="Doctor">
+                    <field name="name" string="Name"/>
+                    <field name="mentor_doctor_id" string="Mentor"/>
+                    <field name="intern_ids" string="Intern"/>
+                    <group>
+                        <filter string="Specialty" name="specialty" context="{'group_by':'specialty_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="doctor_act_window" model="ir.actions.act_window">
             <field name="name">Doctor</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">hr_hospital.doctor</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="search_view_id" ref="doctor_search"/>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                     There is no examples click here to add new Doctor.

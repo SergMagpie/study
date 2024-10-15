@@ -3,23 +3,35 @@
     <data>
         <!--Create Patient like Partner-->
         <record id="partner_patient_1" model="res.partner">
-            <field name="name">Kolya</field>
+            <field name="name">Kolya Petin</field>
         </record>
         <record id="partner_patient_2" model="res.partner">
-            <field name="name">Petya</field>
+            <field name="name">Petya Vasin</field>
         </record>
         <record id="partner_patient_3" model="res.partner">
-            <field name="name">Basil</field>
+            <field name="name">Basilisa Mishina</field>
         </record>
         <!--Add Patient's ref-->
         <record id="patient_1" model="hr_hospital.patient">
             <field name="partner_id" ref="partner_patient_1"/>
+            <field name="personal_doctor_id" ref="doctor_1"/>
+            <field name="date_of_birth" eval="datetime.now() - timedelta(days=7000)"/>
+            <field name="sex">male</field>
+            <field name="phone">987654321</field>
         </record>
         <record id="patient_2" model="hr_hospital.patient">
             <field name="partner_id" ref="partner_patient_2"/>
+            <field name="personal_doctor_id" ref="doctor_2"/>
+            <field name="date_of_birth" eval="datetime.now() - timedelta(days=9000)"/>
+            <field name="sex">neuter</field>
+            <field name="phone">963852741</field>
         </record>
         <record id="patient_3" model="hr_hospital.patient">
             <field name="partner_id" ref="partner_patient_3"/>
+            <field name="personal_doctor_id" ref="doctor_3"/>
+            <field name="date_of_birth" eval="datetime.now() - timedelta(days=8000)"/>
+            <field name="sex">female</field>
+            <field name="phone">123456789</field>
         </record>
     </data>
 </odoo>

@@ -1,17 +1,17 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 
+import datetime
+
 
 class PatientVisit(models.Model):
     _name = "hr_hospital.patient_visit"
     _description = "Patient Visit"
+    _order = "visit_real_datetime desc"
 
     active = fields.Boolean(
         string="Active",
         default=True,
-    )
-    visit_date = fields.Date(
-        string="Visit Date",
     )
     doctor_id = fields.Many2one(
         comodel_name='hr_hospital.doctor',
@@ -49,11 +49,33 @@ class PatientVisit(models.Model):
         string="Patient Name",
         related="patient_id.name",
     )
+    description = fields.Char(
+        string="Patient Description",
+    )
 
-    _sql_constraints = [('date_uniq',
-                         "unique(doctor_id, patient_id, visit_planned_datetime)",
-                         "One patient cannot be booked with the same doctor "
-                         "more than once on the same day!")]
+    @api.depends('doctor_id', 'patient_id', 'visit_planned_datetime')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = '%s to %s on %s' % (
+                record.patient_id.name,
+                record.doctor_id.name,
+                record.visit_planned_datetime.strftime('%m/%d/%y') if record.visit_planned_datetime else '',
+            )
+
+    @api.constrains('doctor_id', 'patient_id', 'visit_planned_datetime')
+    def _check_doctor_id(self):
+        for record in self:
+            if record.search_count([
+                ('doctor_id', '=', record.doctor_id.id),
+                ('patient_id', '=', record.patient_id.id),
+                ('visit_planned_datetime', '>=',
+                 datetime.datetime.combine(
+                     record.visit_planned_datetime.date(), datetime.time(0, 0, 0))),
+                ('visit_planned_datetime', '<=', datetime.datetime.combine(
+                    record.visit_planned_datetime.date(), datetime.time(23, 59, 59))),
+            ]) > 1:
+                raise UserError(_("One patient cannot be booked with the same doctor "
+                                  "more than once on the same day!"))
 
     def unlink(self):
         if self.diagnosis_ids:
@@ -71,7 +93,3 @@ class PatientVisit(models.Model):
             if self.doctor_id.is_intern and not all(self.diagnosis_ids.mapped('is_confirmed')):
                 raise UserError(_('It is forbidden to complete visits by doctor intern without confirmation!'))
         return res
-
-    @api.onchange('visit_planned_datetime')
-    def _onchange_planned_datetime(self):
-        self.visit_date = self.visit_planned_datetime

@@ -49,11 +49,12 @@ class Person(models.AbstractModel):
     @api.depends("partner_id.name")
     def compute_surname_first_name(self):
         for record in self:
-            list_of_values = record.name.split(' ')
-            first_name = ''.join(list_of_values[:1])
-            surname = ' '.join(list_of_values[1:])
-            record.first_name = first_name
-            record.surname = surname
+            if record.name:
+                list_of_values = record.name.split(' ')
+                first_name = ''.join(list_of_values[:1])
+                surname = ' '.join(list_of_values[1:])
+                record.first_name = first_name
+                record.surname = surname
 
     def inverse_surname_first_name(self):
         for record in self:
