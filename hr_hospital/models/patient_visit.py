@@ -7,6 +7,7 @@ import datetime
 class PatientVisit(models.Model):
     _name = "hr_hospital.patient_visit"
     _description = "Patient Visit"
+    _order = "visit_real_datetime desc"
 
     active = fields.Boolean(
         string="Active",
@@ -58,7 +59,7 @@ class PatientVisit(models.Model):
             record.display_name = '%s to %s on %s' % (
                 record.patient_id.name,
                 record.doctor_id.name,
-                record.visit_planned_datetime.strftime('%m/%d/%y'),
+                record.visit_planned_datetime.strftime('%m/%d/%y') if record.visit_planned_datetime else '',
             )
 
     @api.constrains('doctor_id', 'patient_id', 'visit_planned_datetime')
