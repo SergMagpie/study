@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="doctor_report_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doctor">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Doctor report</h2>
+                            <p>First Name: <span t-out="doctor.first_name"/></p>
+                            <p>Surname: <span t-out="doctor.surname"/></p>
+                            <p>Specialty: <span t-out="doctor.specialty_id.name"/></p>
+                            <t t-if="doctor.patient_visit_ids">
+                                <h3>Visit history</h3>
+                                <table class="table table-bordered" style="table-layout: fixed">
+                                    <thead style="display: table-row-group">
+                                        <tr>
+                                            <th class="text-center" style="width: 25%" scope="col">
+                                                Date and time when the visit took place</th>
+                                            <th class="text-center" style="width: 25%" scope="col">Diagnosis</th>
+                                            <th class="text-center" style="width: 25%" scope="col">Patient Name</th>
+                                            <th class="text-center" style="width: 25%" scope="col">description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doctor.patient_visit_ids" t-as="patient_visit_id">
+                                            <tr>
+                                                <td>
+                                                    <t t-if="patient_visit_id.visit_real_datetime">
+                                                        <span t-out="patient_visit_id.visit_real_datetime.strftime('%Y-%m-%d %H:%M')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-out="'--//--'"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-foreach="patient_visit_id.diagnosis_ids" t-as="diagnosis_id">
+                                                        <span t-out="diagnosis_id.name"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <span t-out="patient_visit_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-out="patient_visit_id.description or '--//--'"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <t t-if="doctor.patient_ids">
+                                <h3>Patients</h3>
+                                <table class="table table-bordered" style="table-layout: fixed">
+                                    <thead style="display: table-row-group">
+                                        <tr>
+                                            <th class="text-center" style="width: 25%" scope="col">
+                                                Full patient name</th>
+                                            <th class="text-center" style="width: 25%" scope="col">
+                                                Sex</th>
+                                            <th class="text-center" style="width: 25%" scope="col">
+                                                Date of Birth</th>
+                                            <th class="text-center" style="width: 25%" scope="col">
+                                                Phone</th>
+                                            <th class="text-center" style="width: 25%" scope="col">
+                                                Last Visit State</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="doctor.patient_ids" t-as="patient_id">
+                                            <t t-if="patient_id.last_visit_state == 'scheduled'">
+                                                <t t-set="bgColor" t-value="'#FFFF00'"/>
+                                            </t>
+                                            <t t-elif="patient_id.last_visit_state == 'completed'">
+                                                <t t-set="bgColor" t-value="'#008000'"/>
+                                            </t>
+                                            <t t-elif="patient_id.last_visit_state == 'cancelled'">
+                                                <t t-set="bgColor" t-value="'#FF0000'"/>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="bgColor" t-value="'#FFFFFF'"/>
+                                            </t>
+
+                                            <tr t-attf-style="background-color:{{ bgColor }};">
+                                                <td>
+                                                    <span t-out="patient_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-out="patient_id.sex"/>
+                                                </td>
+                                                <td>
+                                                    <t t-if="patient_id.date_of_birth">
+                                                        <span t-out="patient_id.date_of_birth.strftime('%Y-%m-%d')"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span t-out="'--//--'"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <span t-out="patient_id.phone or '--//--'"/>
+                                                </td>
+                                                <td>
+                                                    <span t-out="patient_id.last_visit_state or '--//--'"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
