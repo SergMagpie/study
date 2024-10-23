@@ -25,6 +25,7 @@
                                 <field name="visit_real_datetime"
                                        readonly="visit_status == 'completed'"/>
                                 <field name="diagnosis_ids" widget="many2many_tags" can_create="false"/>
+                                <field name="description"/>
                             </group>
                         </group>
                     </sheet>
@@ -67,6 +68,7 @@
                                        readonly="visit_status == 'completed'"/>
                                 <field name="diagnosis_ids" widget="many2many_tags"
                                        can_create="false"/>
+                                <field name="description"/>
                             </group>
                         </group>
                     </sheet>

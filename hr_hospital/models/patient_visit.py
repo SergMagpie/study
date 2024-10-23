@@ -7,6 +7,7 @@ import datetime
 class PatientVisit(models.Model):
     _name = "hr_hospital.patient_visit"
     _description = "Patient Visit"
+    _order = "visit_real_datetime desc"
 
     active = fields.Boolean(
         string="Active",
