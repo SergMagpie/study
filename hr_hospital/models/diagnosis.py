@@ -42,10 +42,12 @@ class Diagnosis(models.Model):
 
     @api.depends('disease_id')
     def _compute_disease_type(self):
+        """necessary method for hospital"""
         for record in self:
             record.disease_type_id = record.disease_id.parent_id.id or record.disease_id.id
 
     @api.depends('visit_id.visit_real_datetime')
     def _compute_visit_real_datetime(self):
+        """necessary method for hospital"""
         for record in self:
             record.visit_real_datetime = record.visit_id.visit_real_datetime

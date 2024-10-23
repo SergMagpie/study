@@ -11,6 +11,21 @@
         <record id="partner_patient_3" model="res.partner">
             <field name="name">Basil</field>
         </record>
+        <record id="user_patient_1" model="res.users">
+            <field name="partner_id" ref="partner_patient_1"/>
+            <field name="login">Kolya</field>
+            <field name="groups_id" eval="[(4, ref('group_hr_hospital_patient'))]"/>
+        </record>
+        <record id="user_patient_2" model="res.users">
+            <field name="partner_id" ref="partner_patient_2"/>
+            <field name="login">Petya</field>
+            <field name="groups_id" eval="[(4, ref('group_hr_hospital_patient'))]"/>
+        </record>
+        <record id="user_patient_3" model="res.users">
+            <field name="partner_id" ref="partner_patient_3"/>
+            <field name="login">Basil</field>
+            <field name="groups_id" eval="[(4, ref('group_hr_hospital_patient'))]"/>
+        </record>
         <!--Add Patient's ref-->
         <record id="patient_1" model="hr_hospital.patient">
             <field name="partner_id" ref="partner_patient_1"/>

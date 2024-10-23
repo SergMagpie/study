@@ -17,6 +17,7 @@ class DefinePersonalDoctorWizard(models.TransientModel):
     )
 
     def define_personal_doctor(self):
+        """necessary method for hospital"""
         self.patient_ids.update({
             'personal_doctor_id': self.doctor_id.id,
         })

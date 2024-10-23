@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="module_category_hr_hospital">
+        <field name="name">Hospital</field>
+    </record>
+
+    <record id="group_hr_hospital_patient" model="res.groups">
+        <field name="name">Patient</field>
+        <field name="category_id" ref="hr_hospital.module_category_hr_hospital"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_hr_hospital_intern" model="res.groups">
+        <field name="name">Intern</field>
+        <field name="category_id" ref="hr_hospital.module_category_hr_hospital"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_hospital_patient'))]"/>
+    </record>
+
+    <record id="group_hr_hospital_doctor" model="res.groups">
+        <field name="name">Doctor</field>
+        <field name="category_id" ref="hr_hospital.module_category_hr_hospital"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_hospital_intern'))]"/>
+    </record>
+
+    <record id="group_hr_hospital_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="hr_hospital.module_category_hr_hospital"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_hospital_doctor'))]"/>
+    </record>
+
+    <record id="group_hr_hospital_administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="hr_hospital.module_category_hr_hospital"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_hospital_manager'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_hr_hospital_patient_rule" model="ir.rule">
+        <field name="name">Patient can read their own visits</field>
+        <field name="model_id" ref="model_hr_hospital_patient_visit"/>
+        <field name="domain_force">[('patient_id.partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[
+                Command.link(ref('group_hr_hospital_patient')),
+            ]"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="group_hr_hospital_intern_rule" model="ir.rule">
+        <field name="name">Intern can read their own visits</field>
+        <field name="model_id" ref="model_hr_hospital_patient_visit"/>
+        <field name="domain_force">[('doctor_id.partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[
+                Command.link(ref('group_hr_hospital_intern')),
+            ]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="group_hr_hospital_doctor_rule" model="ir.rule">
+        <field name="name">Doctor can read their own visits</field>
+        <field name="model_id" ref="model_hr_hospital_patient_visit"/>
+        <field name="domain_force">['|', ('doctor_id.partner_id', '=', user.partner_id.id),
+                                    ('doctor_id.mentor_doctor_id.partner_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[
+                Command.link(ref('group_hr_hospital_doctor')),
+            ]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="group_hr_hospital_manager_rule" model="ir.rule">
+        <field name="name">Manager can read all visits</field>
+        <field name="model_id" ref="model_hr_hospital_patient_visit"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[
+                Command.link(ref('group_hr_hospital_manager')),
+            ]"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="group_hr_hospital_admin_rule" model="ir.rule">
+        <field name="name">Admin can do all visits</field>
+        <field name="model_id" ref="model_hr_hospital_patient_visit"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[
+                Command.link(ref('group_hr_hospital_administrator')),
+            ]"/>
+    </record>
+
+</odoo>

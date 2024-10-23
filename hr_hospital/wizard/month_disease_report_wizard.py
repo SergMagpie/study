@@ -33,6 +33,7 @@ class MonthDiseaseReportWizard(models.TransientModel):
 
     @api.onchange('doctor_ids', 'disease_ids', 'from_date', 'to_date', 'diagnosis_ids')
     def onchange_for_diagnosis_ids(self):
+        """necessary method for hospital"""
         search_domain = []
         if self.doctor_ids:
             patient_visit_ids = self.env['hr_hospital.patient_visit'].search([('doctor_id', 'in', self.doctor_ids.ids)])
@@ -50,6 +51,7 @@ class MonthDiseaseReportWizard(models.TransientModel):
         self.diagnosis_ids = [(6, 0, self.diagnosis_ids.search(search_domain).ids)]
 
     def month_disease_report(self):
+        """necessary method for hospital"""
         data = {
             'from_date': self.from_date,
             'to_date': self.to_date,

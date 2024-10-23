@@ -54,17 +54,19 @@ class PatientVisit(models.Model):
 
     @api.depends('doctor_id', 'patient_id', 'visit_planned_datetime')
     def _compute_display_name(self):
+        """necessary method for hospital"""
         for record in self:
             record.display_name = '%s to %s on %s' % (
                 record.patient_id.name,
                 record.doctor_id.name,
-                record.visit_planned_datetime.strftime('%m/%d/%y'),
+                record.visit_planned_datetime.strftime('%m/%d/%y') if record.visit_planned_datetime else '',
             )
 
     @api.constrains('doctor_id', 'patient_id', 'visit_planned_datetime')
     def _check_doctor_id(self):
+        """necessary method for hospital"""
         for record in self:
-            if record.search_count([
+            if record.visit_planned_datetime and record.search_count([
                 ('doctor_id', '=', record.doctor_id.id),
                 ('patient_id', '=', record.patient_id.id),
                 ('visit_planned_datetime', '>=',
@@ -77,12 +79,14 @@ class PatientVisit(models.Model):
                                   "more than once on the same day!"))
 
     def unlink(self):
+        """necessary method for hospital"""
         if self.diagnosis_ids:
             raise UserError(_('It is forbidden to delete or archive visits with diagnoses!'))
         res = super().unlink()
         return res
 
     def write(self, vals):
+        """necessary method for hospital"""
         if 'active' in vals and not vals['active'] and self.diagnosis_ids:
             raise UserError(_('It is forbidden to delete or archive visits with diagnoses!'))
         res = super().write(vals)

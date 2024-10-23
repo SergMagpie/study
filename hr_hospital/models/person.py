@@ -9,6 +9,11 @@ class Person(models.AbstractModel):
         comodel_name="res.partner",
         string="Name",
     )
+    user_id = fields.Many2one(
+        comodel_name="res.users",
+        string="User",
+        related='partner_id.user_id',
+    )
 
     name = fields.Char(
         related="partner_id.name",
@@ -48,6 +53,7 @@ class Person(models.AbstractModel):
 
     @api.depends("partner_id.name")
     def compute_surname_first_name(self):
+        """necessary method for hospital"""
         for record in self:
             if record.name:
                 list_of_values = record.name.split(' ')
@@ -57,6 +63,7 @@ class Person(models.AbstractModel):
                 record.surname = surname
 
     def inverse_surname_first_name(self):
+        """necessary method for hospital"""
         for record in self:
             record.partner_id.name = ' '.join([i for i in
                                                [record.first_name,

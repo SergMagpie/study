@@ -11,6 +11,22 @@
         <record id="partner_doctor_3" model="res.partner">
             <field name="name">Mo</field>
         </record>
+
+        <record id="user_doctor_1" model="res.users">
+            <field name="partner_id" ref="partner_doctor_1"/>
+            <field name="login">Strange</field>
+            <field name="groups_id" eval="[(4, ref('group_hr_hospital_doctor'))]"/>
+        </record>
+        <record id="user_doctor_2" model="res.users">
+            <field name="partner_id" ref="partner_doctor_2"/>
+            <field name="login">Who</field>
+            <field name="groups_id" eval="[(4, ref('group_hr_hospital_doctor'))]"/>
+        </record>
+        <record id="user_doctor_3" model="res.users">
+            <field name="partner_id" ref="partner_doctor_3"/>
+            <field name="login">Mo</field>
+            <field name="groups_id" eval="[(4, ref('group_hr_hospital_intern'))]"/>
+        </record>
         <!--Create Specialty-->
         <record id="specialty_1" model="hr_hospital.specialty">
             <field name="name">Somnologist</field>

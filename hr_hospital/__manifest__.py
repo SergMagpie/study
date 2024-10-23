@@ -1,17 +1,19 @@
 {
     'name': 'HR Hospital',
-    'version': '17.0.3.0.0',
+    'version': '17.0.4.0.0',
     'category': 'Human Resources',
     'summary': "Module for hospital automation: keeping records of doctors and patients.",
     'description': """
     This module for hospital automation: keeping records of doctors and patients.
     17.0.2.0.0 - updated for module 3
     17.0.3.0.0 - updated for module 4
+    17.0.4.0.0 - updated for module 6
     """,
     'depends': [
-        'hr',
+        'base',
     ],
     'data': [
+        'security/res_groups.xml',
         'security/ir.model.access.csv',
         'data/disease_data.xml',
         'views/menu.xml',

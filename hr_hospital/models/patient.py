@@ -35,11 +35,13 @@ class Patient(models.Model):
     )
 
     def _compute_diagnosis(self):
+        """necessary method for hospital"""
         for record in self:
             record.diagnosis_ids = [(6, 0, record.env['hr_hospital.patient_visit'].search(
                 [('patient_id', '=', record.id)]).diagnosis_ids.ids)]
 
     def compute_age(self):
+        """necessary method for hospital"""
         for record in self:
             if record.date_of_birth:
                 record.age = (fields.Date.today() - record.date_of_birth).days / 365.25
@@ -47,11 +49,13 @@ class Patient(models.Model):
                 record.age = 0
 
     def open_patient_visit_act_window(self):
+        """necessary method for hospital"""
         action = self.env['ir.actions.act_window']._for_xml_id('hr_hospital.patient_visit_act_window')
         action['domain'] = [('patient_id', '=', self.id)]
         return action
 
     def open_patient_visit_act_window_calendar(self):
+        """necessary method for hospital"""
         action = {
             'name': 'Patient Visit',
             'type': 'ir.actions.act_window',

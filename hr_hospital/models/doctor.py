@@ -27,6 +27,7 @@ class Doctor(models.Model):
     )
 
     def open_patient_visit_act_window_calendar(self):
+        """necessary method for hospital"""
         action = {
             'name': 'Patient Visit',
             'type': 'ir.actions.act_window',
